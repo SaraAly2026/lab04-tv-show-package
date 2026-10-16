@@ -5,7 +5,7 @@
         "English": 236,
         "Japanese": 4
     },
-    "average_rating": 7.5855932203389855,
+    "average_rating": 7.58347457627119,
     "genres": [
         "Action",
         "Adventure",
@@ -29,5 +29,12 @@
         "Thriller",
         "War",
         "Western"
+    ],
+    "featured_shows": [
+        "How I Met Your Mother",
+        "American Horror Story",
+        "Homeland",
+        "The Fosters",
+        "The Walking Dead"
     ]
 }
