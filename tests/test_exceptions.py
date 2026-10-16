@@ -1,4 +1,3 @@
-
 """Tests for custom application exceptions."""
 
 from pathlib import Path
@@ -25,7 +24,7 @@ def test_network_failure():
         ),
         pytest.raises(DataFetchError),
     ):
-        TVMazeSource().fetch()
+        TVMazeSource(url="https://api.tvmaze.com/shows?page=0", timeout=15).fetch()
 
 
 def test_invalid_json():
@@ -38,7 +37,7 @@ def test_invalid_json():
         patch("tvsummary.sources.requests.get", return_value=response),
         pytest.raises(DataValidationError),
     ):
-        TVMazeSource().fetch()
+        TVMazeSource(url="https://api.tvmaze.com/shows?page=0", timeout=15).fetch()
 
 
 def test_invalid_response_structure():
@@ -51,7 +50,7 @@ def test_invalid_response_structure():
         patch("tvsummary.sources.requests.get", return_value=response),
         pytest.raises(DataValidationError),
     ):
-        TVMazeSource().fetch()
+        TVMazeSource(url="https://api.tvmaze.com/shows?page=0", timeout=15).fetch()
 
 
 def test_report_write_failure(tmp_path):

@@ -31,10 +31,7 @@ def test_no_ratings_returns_none():
     ],
 )
 def test_average_rating_cases(ratings, expected):
-    shows = [
-        TVShow({"rating": {"average": rating}})
-        for rating in ratings
-    ]
+    shows = [TVShow({"rating": {"average": rating}}) for rating in ratings]
 
     assert AverageRating().compute(shows) == expected
 

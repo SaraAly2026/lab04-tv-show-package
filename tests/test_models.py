@@ -4,12 +4,14 @@ from tvsummary.models import TVShow
 
 
 def test_valid_show():
-    show = TVShow({
-        "name": "Example Show",
-        "language": "English",
-        "genres": ["Drama", "Comedy"],
-        "rating": {"average": 8.5},
-    })
+    show = TVShow(
+        {
+            "name": "Example Show",
+            "language": "English",
+            "genres": ["Drama", "Comedy"],
+            "rating": {"average": 8.5},
+        }
+    )
 
     assert show.name == "Example Show"
     assert show.language == "English"

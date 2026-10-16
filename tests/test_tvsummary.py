@@ -11,38 +11,40 @@ from tvsummary.models import TVShow
 
 
 class TestTVSummary(unittest.TestCase):
-
     def setUp(self):
         """Create sample TV shows without using the API."""
         self.shows = [
-            TVShow({
-                "name": "Show A",
-                "language": "English",
-                "rating": {"average": 8.0},
-                "genres": ["Drama", "Comedy"],
-            }),
-            TVShow({
-                "name": "Show B",
-                "language": "English",
-                "rating": {"average": 6.0},
-                "genres": ["Drama"],
-            }),
-            TVShow({
-                "name": "Show C",
-                "language": "Japanese",
-                "rating": {"average": None},
-                "genres": ["Anime"],
-            }),
+            TVShow(
+                {
+                    "name": "Show A",
+                    "language": "English",
+                    "rating": {"average": 8.0},
+                    "genres": ["Drama", "Comedy"],
+                }
+            ),
+            TVShow(
+                {
+                    "name": "Show B",
+                    "language": "English",
+                    "rating": {"average": 6.0},
+                    "genres": ["Drama"],
+                }
+            ),
+            TVShow(
+                {
+                    "name": "Show C",
+                    "language": "Japanese",
+                    "rating": {"average": None},
+                    "genres": ["Anime"],
+                }
+            ),
         ]
 
     def test_language_counts(self):
         """Check that shows are counted by language."""
         result = LanguageCount().compute(self.shows)
 
-        self.assertEqual(
-            result,
-            {"English": 2, "Japanese": 1}
-        )
+        self.assertEqual(result, {"English": 2, "Japanese": 1})
 
     def test_average_rating(self):
         """Check that missing ratings are ignored."""
@@ -54,10 +56,7 @@ class TestTVSummary(unittest.TestCase):
         """Check that genres are unique and sorted."""
         result = GenreList().compute(self.shows)
 
-        self.assertEqual(
-            result,
-            ["Anime", "Comedy", "Drama"]
-        )
+        self.assertEqual(result, ["Anime", "Comedy", "Drama"])
 
     def test_missing_values(self):
         """Check that missing values are handled safely."""
