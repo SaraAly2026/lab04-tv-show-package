@@ -1,22 +1,22 @@
 """TVMaze summary package."""
 
-from .models import TVShow
-from .sources import TVMazeSource
 from .aggregations import (
     Aggregation,
-    LanguageCount,
     AverageRating,
     GenreList,
+    LanguageCount,
 )
+from .models import TVShow
 from .report import build_summary, save_summary
+from .sources import TVMazeSource
 
 __all__ = [
-    "TVShow",
-    "TVMazeSource",
     "Aggregation",
-    "LanguageCount",
     "AverageRating",
     "GenreList",
+    "LanguageCount",
+    "TVMazeSource",
+    "TVShow",
     "build_summary",
     "save_summary",
 ]

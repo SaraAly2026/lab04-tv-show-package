@@ -2,7 +2,7 @@
 
 import requests
 
-from .config import TVMAZE_URL, REQUEST_TIMEOUT
+from .config import REQUEST_TIMEOUT, TVMAZE_URL
 from .exceptions import DataFetchError, DataValidationError
 from .models import TVShow
 

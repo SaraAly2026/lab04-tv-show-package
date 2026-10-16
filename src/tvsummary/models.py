@@ -10,8 +10,8 @@ class TVShow:
 
         self.name = (
             raw_data.get("name")
-            if isinstance(raw_data.get("name"), str)
-            else None
+            if isinstance(raw_data.get("name"), str) and raw_data.get("name")
+            else "Unknown"
         )
 
         self.language = (

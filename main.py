@@ -1,24 +1,22 @@
 """Entry point for the TVMaze summary application."""
 
 
-from tvsummary.config import TVMAZE_URL
-from tvsummary.sources import TVMazeSource
+import logging
+
 from tvsummary.aggregations import (
-    LanguageCount,
     AverageRating,
     GenreList,
+    LanguageCount,
 )
-from tvsummary.report import build_summary, save_summary
+from tvsummary.config import TVMAZE_URL
 from tvsummary.exceptions import (
     DataFetchError,
     DataValidationError,
     ReportWriteError,
 )
-
-import logging
-
 from tvsummary.logging_config import setup_logging
-
+from tvsummary.report import build_summary, save_summary
+from tvsummary.sources import TVMazeSource
 
 logger = logging.getLogger(__name__)
 

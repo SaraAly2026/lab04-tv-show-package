@@ -2,12 +2,12 @@
 
 import unittest
 
-from tvsummary.models import TVShow
 from tvsummary.aggregations import (
-    LanguageCount,
     AverageRating,
     GenreList,
+    LanguageCount,
 )
+from tvsummary.models import TVShow
 
 
 class TestTVSummary(unittest.TestCase):

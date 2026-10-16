@@ -10,7 +10,6 @@ class Aggregation(ABC):
     @abstractmethod
     def compute(self, shows):
         """Calculate a summary from TV show objects."""
-        pass
 
 
 class LanguageCount(Aggregation):
