@@ -3,6 +3,7 @@
 import requests
 
 from .config import TVMAZE_URL, REQUEST_TIMEOUT
+from .exceptions import DataFetchError, DataValidationError
 from .models import TVShow
 
 
@@ -17,18 +18,24 @@ class TVMazeSource:
         try:
             response = requests.get(
                 self.url,
-                timeout=REQUEST_TIMEOUT
+                timeout=REQUEST_TIMEOUT,
             )
             response.raise_for_status()
-
-            data = response.json()
-
-            if not isinstance(data, list):
-                raise ValueError("Expected a list of TV shows.")
-
-            return [TVShow(record) for record in data]
-
-        except (requests.RequestException, ValueError) as error:
-            raise RuntimeError(
+        except requests.RequestException as error:
+            raise DataFetchError(
                 f"Failed to download TV shows: {error}"
             ) from error
+
+        try:
+            data = response.json()
+        except ValueError as error:
+            raise DataValidationError(
+                "TVMaze returned invalid JSON."
+            ) from error
+
+        if not isinstance(data, list):
+            raise DataValidationError(
+                "Expected a list of TV shows."
+            )
+
+        return [TVShow(record) for record in data]

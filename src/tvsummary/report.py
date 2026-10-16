@@ -3,6 +3,7 @@
 import json
 
 from .config import OUTPUT_PATH
+from .exceptions import ReportWriteError
 
 
 def build_summary(shows, aggregations):
@@ -17,7 +18,13 @@ def build_summary(shows, aggregations):
 
 def save_summary(summary, output_path=OUTPUT_PATH):
     """Save the summary as a formatted JSON file."""
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with output_path.open("w", encoding="utf-8") as file:
-        json.dump(summary, file, indent=4, ensure_ascii=False)
+        with output_path.open("w", encoding="utf-8") as file:
+            json.dump(summary, file, indent=4, ensure_ascii=False)
+
+    except (OSError, TypeError, ValueError) as error:
+        raise ReportWriteError(
+            f"Failed to save summary report: {error}"
+        ) from error

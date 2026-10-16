@@ -1,5 +1,6 @@
 """Entry point for the TVMaze summary application."""
 
+
 from tvsummary.config import TVMAZE_URL
 from tvsummary.sources import TVMazeSource
 from tvsummary.aggregations import (
@@ -8,19 +9,36 @@ from tvsummary.aggregations import (
     GenreList,
 )
 from tvsummary.report import build_summary, save_summary
+from tvsummary.exceptions import (
+    DataFetchError,
+    DataValidationError,
+    ReportWriteError,
+)
+
+import logging
+
+from tvsummary.logging_config import setup_logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def main():
     """Fetch, aggregate, and save TV show data."""
 
     source = TVMazeSource()
+    setup_logging()
+    logger.info("Starting TVMaze summary application")
 
+    
     try:
         shows = source.fetch()
-    except RuntimeError as error:
-        print(f"Download failed: {error}")
+        logger.info("Downloaded %d TV shows", len(shows))
+       
+    except (DataFetchError, DataValidationError) as error:
+        logger.error("TVMaze data error: %s", error)
         return
-
+    
     aggregations = {
         "language_counts": LanguageCount(),
         "average_rating": AverageRating(),
@@ -35,10 +53,14 @@ def main():
         **results,
     }
 
-    save_summary(summary)
+    try:
+        save_summary(summary)
+        logger.info("Summary report saved successfully")
+    except ReportWriteError as error:
+        logger.error("Report saving error: %s", error)
+        return
 
-    print(f"Downloaded {len(shows)} records.")
-    print("Summary saved successfully.")
+    print("TVMaze summary completed successfully.")
 
 
 if __name__ == "__main__":
