@@ -1,0 +1,33 @@
+{
+  "source_url": "https://api.tvmaze.com/shows?page=0",
+  "record_count": 240,
+  "language_counts": {
+    "English": 236,
+    "Japanese": 4
+  },
+  "average_rating": 7.584745762711866,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Anime",
+    "Comedy",
+    "Crime",
+    "Drama",
+    "Espionage",
+    "Family",
+    "Fantasy",
+    "History",
+    "Horror",
+    "Legal",
+    "Medical",
+    "Music",
+    "Mystery",
+    "Romance",
+    "Science-Fiction",
+    "Sports",
+    "Supernatural",
+    "Thriller",
+    "War",
+    "Western"
+  ]
+}
